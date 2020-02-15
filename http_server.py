@@ -66,6 +66,20 @@ class Handler(BaseHTTPRequestHandler):
                 f.close()  
                 return
 
+            elif self.path.endswith(".json"):
+                f = open(currPath + sep +self.path, 'rb')
+                #send code 200 response  
+                self.send_response(200)  
+
+                #send header first  
+                self.send_header('Content-type', 'application/json')
+                self.end_headers()  
+
+                fileData = f.read()
+                self.wfile.write(fileData)  
+                f.close()  
+                return
+
             elif self.path.endswith('/api/test'):
                 self.send_response(200)
                 # self.send_header('Content-type','text/html')
